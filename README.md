@@ -1,5 +1,3 @@
-# optimering_grupp
-
 # Groupwork i Mask, hösten 2021
 
 ### Deadline 10.12.2019 kl. 8.30 (Max 40 p.)
