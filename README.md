@@ -1,4 +1,24 @@
 # Groupwork i Mask, hösten 2021
+*Johan, Fredrik & Kristoffer*
+
+
+## ToDo
+ - LP solve
+ - GA solve
+ - Compare in 6 page report
+ - Presentation
+
+## Sample sodukus
+find solvable sodukus in sudokus folder, import example:
+
+```
+from sudokus.samples import samples
+sudokus = samples.sudokus()
+```
+
+
+
+## Assignment
 
 ### Deadline 10.12.2019 kl. 8.30 (Max 40 p.)
 
