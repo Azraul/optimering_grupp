@@ -2,6 +2,8 @@ import numpy as np
 # built from video tutorial
 # https://www.youtube.com/watch?v=G_UYXzGuqvM
 
+## Can solve all current samples
+
 ## import sample sudokus
 from sudokus.samples import samples
 sudokus = samples.sudokus()
