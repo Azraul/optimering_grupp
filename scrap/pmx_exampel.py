@@ -13,16 +13,16 @@ Johan & Kristoffer
 import numpy as np
 
 # skriv in föräldrarna, tagna från lektionen
-parent1 = [1,2,3,4,5,6,7,8,9]
-parent2 = [9,3,7,8,2,6,5,1,4]
+parent1 = [1,2,3,4,5]
+parent2 = [9,3,7,8,2]
 
 # skapa skärningspunkter per lektion
 #
 #          3            7
 # [1,2,3,  |  4,5,6,7,  |  8,9]
 
-firstCrossPoint = 3
-secondCrossPoint = 7
+firstCrossPoint = 0
+secondCrossPoint = 4
 
 # ta ut delarna som används
 parent1MiddleCross = parent1[firstCrossPoint:secondCrossPoint]
