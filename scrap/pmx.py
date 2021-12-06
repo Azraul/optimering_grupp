@@ -13,20 +13,20 @@ Johan & Kristoffer
 import numpy as np
 
 # skriv in föräldrarna, tagna från lektionen
-parent1 = [1,2,3,4,5,6,7,8,9]
-parent2 = [9,3,7,8,2,6,5,1,4]
+parent1 = None
+parent2 = None
 
 # skapa skärningspunkter per lektion
 #
 #          3            7
 # [1,2,3,  |  4,5,6,7,  |  8,9]
 
-firstCrossPoint = 0
-secondCrossPoint = 4
+firstCrossPoint = None
+secondCrossPoint = None
 
 # ta ut delarna som används
-parent1MiddleCross = parent1[firstCrossPoint:secondCrossPoint]
-parent2MiddleCross = parent2[firstCrossPoint:secondCrossPoint]
+parent1MiddleCross = None
+parent2MiddleCross = None
 # parent1MiddleCross:  [4, 5, 6, 7]
 # parent2MiddleCross:  [8, 2, 6, 5]
 
@@ -39,14 +39,11 @@ parent2MiddleCross = parent2[firstCrossPoint:secondCrossPoint]
 #
 # temp_child2:  [9, 3, 7, 4, 5, 6, 7, 1, 4]
 
-temp_child1 = parent1[:firstCrossPoint] + parent2MiddleCross + parent1[secondCrossPoint:]
-temp_child2 = parent2[:firstCrossPoint] + parent1MiddleCross + parent2[secondCrossPoint:]
 
 # kolla vilka relationer varje siffra har i mitt delarna
 # detta används för att fixa dubbletter senare, VIKTIGA!
 relations = []
-for i in range(len(parent1MiddleCross)):
-    relations.append([parent2MiddleCross[i], parent1MiddleCross[i]])
+
 
 # print(relations)
 # [[8, 4], [2, 5], [6, 6], [5, 7]]
@@ -104,6 +101,7 @@ def recursion1 (temp_child , firstCrossPoint , secondCrossPoint , parent1MiddleC
     # inte skapade en ny dubblet, genom att ta alla unique values och kolla att de mindre än barnet i längde
     # i.e barn [1,2,2], unique [1,2] - barnet är längre än unique, alltså måste vi köra om functionen och prova byta fler relationer
     child_unique=np.unique(child)
+    #print(child)
     if len(child)>len(child_unique):
         child=recursion1(child,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
     return(child)
@@ -140,12 +138,31 @@ def recursion2(temp_child,firstCrossPoint,secondCrossPoint,parent1MiddleCross,pa
         child=recursion2(child,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
     return(child)
 
-# kör functionerna
-child1=recursion1(temp_child1,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
-child2=recursion2(temp_child2,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
 
-print('child1 ' , child1)
-print('child2 ' , child2)
+
+def pmx(p1, p2, cross1, cross2):
+    global parent1,parent2, firstCrossPoint, secondCrossPoint, parent1MiddleCross, parent2MiddleCross, relations, n
+    parent1 = p1
+    parent2 = p2
+    firstCrossPoint = cross1
+    secondCrossPoint = cross2
+    parent1MiddleCross = parent1[firstCrossPoint:secondCrossPoint]
+    parent2MiddleCross = parent2[firstCrossPoint:secondCrossPoint]
+
+    # Concatenating numpy arrays is fucking slower than: converting them to a list() first and then just letting python + them together D:
+    # np way: 2.25-2.30 seconds, list(): 2.11-2.16
+    #temp_child1 = np.concatenate((parent1[:firstCrossPoint], parent2MiddleCross, parent1[secondCrossPoint:]))
+    #temp_child2 = np.concatenate((parent2[:firstCrossPoint], parent1MiddleCross, parent2[secondCrossPoint:]))
+    temp_child1 = parent1[:firstCrossPoint] + parent2MiddleCross + parent1[secondCrossPoint:]
+    temp_child2 = parent2[:firstCrossPoint] + parent1MiddleCross + parent2[secondCrossPoint:]
+    for i in range(len(parent1MiddleCross)):
+        relations.append([parent2MiddleCross[i], parent1MiddleCross[i]])
+
+    # kör functionerna
+    child1=recursion1(temp_child1,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
+    child2=recursion2(temp_child2,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
+    relations = []
+    return child1, child2
 
 # child1: [1 7 3 8 2 6 5 4 9] <- det andra barnet på lösningen
 # child2: [9 3 2 4 5 6 7 1 8] <- samma som lektions materialet

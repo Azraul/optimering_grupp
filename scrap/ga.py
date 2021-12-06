@@ -1,6 +1,7 @@
 import random
 import numpy as np
 from typing import List, Tuple
+from pmx import pmx
 
 
 puzzle = np.array(
@@ -56,27 +57,33 @@ def breed(parent1: Puzzle, parent2: Puzzle, mask):
     part1, part2 = [], []
     first_cross_point, second_cross_point = 0, 0
     for i, m in enumerate(mask):
-        if (len(m) == 0):
+        p1_mutable_genes = parent1[i, m]
+        p2_mutable_genes = parent2[i, m]
+        gene_len = len(p1_mutable_genes)
+        if (gene_len == 0):
             continue
-        par1_mutable_genes = parent1[i, m]
-        par2_mutable_genes = parent2[i, m]
-        if (len(m) == 1 or len(m) == 2):
-            part1.extend(par2_mutable_genes)
-            part2.extend(par1_mutable_genes)
+        if (gene_len == 1 or gene_len == 2):
+            part1.extend(p2_mutable_genes)
+            part2.extend(p1_mutable_genes)
             continue
-        if(len(m) == 3):
+        if(gene_len == 3):
             first_cross_point = 1
             second_cross_point = 2
+        elif(gene_len == 4):
+            first_cross_point = 2
+            second_cross_point = 3
         else:
-            first_cross_point = round(len(m) / 3)
-            second_cross_point = (len(m) - 1) - first_cross_point
-        #a, b = pmx(parent1[i, m], parent2[i, m], first_cross_point, second_cross_point)
-        a = par2_mutable_genes
-        b = par1_mutable_genes
+            first_cross_point = round(gene_len / 3)
+            second_cross_point = gene_len - (first_cross_point - 1)
+        
+        #a, b = pmx(p1_mutable_genes, p2_mutable_genes, first_cross_point, second_cross_point)
+        a, b = pmx(list(p1_mutable_genes), list(p2_mutable_genes), first_cross_point, second_cross_point)
+        # a = par2_mutable_genes
+        # b = par1_mutable_genes
         part1.extend(a)
         part2.extend(b)
+    
     # These are actually the new children, but by not re-assigning them we should improve performance
-
     parent1[mask] = part1
     parent2[mask] = part2
     return parent1, parent2
@@ -91,7 +98,7 @@ def ga(puzzle: Puzzle, n_parents=200, n_generations=100, divisor=2, mutation_rat
     fitness = Fitness(puzzle)
     solutions, fitnesses = fitness.check(solutions)
 
-    for generation in range(n_generations):
+    for generation in range(n_generations): # This should be termination condition ie. when puzzle is solved
         next_gen = []
         weights = []
         total = 0
@@ -114,8 +121,11 @@ def ga(puzzle: Puzzle, n_parents=200, n_generations=100, divisor=2, mutation_rat
             next_gen.append(child2)
         solutions = next_gen
 
-
+import time
+t0 = time.time()
 ga(puzzle=puzzle, n_parents=100, n_generations=10, divisor=2)
+t1 = time.time()
+print("Finished in ", round(t1-t0, 2))
 ## Breeding
 # Take out the puzzle supplied values then send them in to pmx
 # Place fixed values back to correct places
