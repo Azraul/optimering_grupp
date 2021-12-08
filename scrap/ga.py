@@ -4,17 +4,17 @@ from typing import List, Tuple
 from pmx import pmx
 
 
-puzzle = np.array(
+puz = np.array(
     [
-        [0, 0, 3, 0, 2, 0, 6, 0, 0],
-        [9, 0, 0, 3, 0, 5, 0, 0, 1],
-        [0, 0, 1, 8, 0, 6, 4, 0, 0],
-        [0, 0, 8, 1, 0, 2, 9, 0, 0],
-        [7, 0, 0, 0, 0, 0, 0, 0, 8],
-        [0, 0, 6, 7, 0, 8, 2, 0, 0],
-        [0, 0, 2, 6, 0, 9, 5, 0, 0],
-        [8, 0, 0, 2, 0, 3, 0, 0, 9],
-        [0, 0, 5, 0, 1, 0, 3, 0, 0],
+        [4, 8, 3, 0, 2, 0, 6, 5, 0],
+        [9, 6, 7, 0, 4, 0, 8, 2, 1],
+        [2, 5, 1, 0, 7, 6, 0, 9, 0],
+        [5, 4, 8, 0, 0, 2, 0, 7, 6],
+        [7, 0, 0, 5, 6, 0, 1, 3, 8],
+        [1, 3, 0, 7, 9, 0, 2, 4, 5],
+        [0, 7, 2, 6, 0, 9, 0, 1, 4],
+        [0, 1, 4, 2, 0, 3, 7, 6, 9],
+        [6, 0, 5, 4, 0, 7, 3, 8, 2],
     ]
 )
 Puzzle = np.ndarray  # List[List[int]]
@@ -36,69 +36,124 @@ def generate_solutions(puzzle: Puzzle, n: int) -> List[Puzzle]:
     return solutions
 
 
-# solutions = generate_solutions(np.array(puzzle), 200)
-
 # Instantiate evaluator based off a puzzle, then you can repetively call a function that evalutes
 class Fitness:
     def __init__(self, puzzle) -> None:
         self.puzzle = puzzle
 
-    def check(self, solutions: List[Puzzle]) -> Tuple[List[Puzzle], List[int]]:
+    def consistent(self, solution) -> int:
+        """Check how many different elements there are in each row.
+        Ideally there should be DIM different elements, if there are no duplicates."""
+        return sum([len(solution) - len(set(row)) for row in solution])
+
+    def check(self, solutions: List[Puzzle]):
+        scored = []
         for solution in solutions:
-            # print("many fitness tests are done")
-            pass
-        return (solutions, [1, 2, 3])
+            s = 0
+            s += self.consistent(np.rot90(solution, 1))
+            s += self.consistent(
+                [
+                    solution[i : i + 3, j : j + 3].flatten()
+                    for i in range(0, 9, 3)
+                    for j in range(0, 9, 3)
+                ]
+            )
+            scored.append([solution, s])
+        scored = np.array(sorted(scored, key=lambda pair: pair[1]))
+        return list(scored[:, 0]), list(scored[:, 1])
 
 
-## Termination check? Repopulation check?
-
-
-def breed(parent1: Puzzle, parent2: Puzzle, mask):
-    part1, part2 = [], []
+def breed_pmx(p1: Puzzle, p2: Puzzle, mask):
+    parent1 = p1.copy()
+    parent2 = p2.copy()
+    crossed_parts_1, crossed_parts_2 = [], []
     first_cross_point, second_cross_point = 0, 0
     for i, m in enumerate(mask):
-        p1_mutable_genes = parent1[i, m]
-        p2_mutable_genes = parent2[i, m]
-        gene_len = len(p1_mutable_genes)
-        if (gene_len == 0):
+        p1_crossable_genes = parent1[i, m]
+        p2_crossable_genes = parent2[i, m]
+        gene_len = len(p1_crossable_genes)
+        # Choosing good crossover places depending how long the array is
+        if gene_len == 0:
             continue
-        if (gene_len == 1 or gene_len == 2):
-            part1.extend(p2_mutable_genes)
-            part2.extend(p1_mutable_genes)
+        if gene_len == 1 or gene_len == 2:
+            crossed_parts_1.extend(p2_crossable_genes)
+            crossed_parts_2.extend(p1_crossable_genes)
             continue
-        if(gene_len == 3):
+        if gene_len == 3:
             first_cross_point = 1
             second_cross_point = 2
-        elif(gene_len == 4):
+        elif gene_len == 4:
             first_cross_point = 2
             second_cross_point = 3
         else:
             first_cross_point = round(gene_len / 3)
             second_cross_point = gene_len - (first_cross_point - 1)
-        
-        #a, b = pmx(p1_mutable_genes, p2_mutable_genes, first_cross_point, second_cross_point)
-        a, b = pmx(list(p1_mutable_genes), list(p2_mutable_genes), first_cross_point, second_cross_point)
-        # a = par2_mutable_genes
-        # b = par1_mutable_genes
-        part1.extend(a)
-        part2.extend(b)
-    
+
+        # a, b = pmx(p1_mutable_genes, p2_mutable_genes, first_cross_point, second_cross_point)
+        cross1, cross2 = pmx(
+            list(p1_crossable_genes),
+            list(p2_crossable_genes),
+            first_cross_point,
+            second_cross_point,
+        )
+
+        crossed_parts_1.extend(cross1)
+        crossed_parts_2.extend(cross2)
+
     # These are actually the new children, but by not re-assigning them we should improve performance
-    parent1[mask] = part1
-    parent2[mask] = part2
+    parent1[mask] = crossed_parts_1
+    parent2[mask] = crossed_parts_2
     return parent1, parent2
 
 
-def ga(puzzle: Puzzle, n_parents=200, n_generations=100, divisor=2, mutation_rate=0.01):
+def breed_swap_rows(p1: Puzzle, p2: Puzzle, mask):
+    parent1 = p1.copy()
+    parent2 = p2.copy()
+    randy = random.randint(0, 7)
+    temp_par1_row = parent1[randy]
+    parent1[randy] = parent2[randy + 1]
+    parent2[randy + 1] = temp_par1_row
+    return parent1, parent2
+
+
+def mutate(genes: Puzzle, mask):
+    """
+    Swaps 2 places on a random row. Happens only on the changeable places
+    """
+    # mask == like selecting pandas dataframe rows on a condition
+    # Select a random row of the sudoku
+    random_row = np.random.choice(len(mask))
+    mutable_genes = genes[random_row, mask[random_row]]
+    # Generate 2 random numbers(duplicates wont be chosen with replace=False) to do the swap on
+    gene_1_idx, gene_2_idx = np.random.choice(len(mutable_genes), size=2, replace=False)
+
+    # Swap two elements with eachother
+    temp = mutable_genes[gene_1_idx]
+    mutable_genes[gene_1_idx] = mutable_genes[gene_2_idx]
+    mutable_genes[gene_2_idx] = temp
+    # Place back the new changed row into the puzzle
+    genes[random_row, mask[random_row]] = mutable_genes
+    return genes
+
+
+def ga(puzzle: Puzzle, n_parents=200, n_generations=100, divisor=2, mutation_rate=0.01, selection_ratio=0.25):
     print(f"Running ga with: {n_parents=} {n_generations=} {divisor=} {mutation_rate=}")
-    # fixed_numbers_mask =
     solutions = generate_solutions(puzzle, n_parents)
     mask = puzzle == 0
 
     fitness = Fitness(puzzle)
     solutions, fitnesses = fitness.check(solutions)
+    print("Start, best fitness:", fitnesses[0])
 
-    for generation in range(n_generations): # This should be termination condition ie. when puzzle is solved
+    for generation in range(
+        n_generations
+    ):  # This should be termination condition ie. when puzzle is solved
+        if fitnesses[0] == 0:
+            print("Sudoku solved in generation:", generation)
+            break
+
+        # Select only the best solutions to evolve with ### Holy crap this was a winner move!
+        solutions = solutions[0 : int(selection_ratio * len(solutions))]
         next_gen = []
         weights = []
         total = 0
@@ -106,95 +161,34 @@ def ga(puzzle: Puzzle, n_parents=200, n_generations=100, divisor=2, mutation_rat
             total += 1 / i
             weights.append((1 / i))
 
-        while len(solutions) >= 2:
+        for i in range(0, n_parents, 2):
             parent1_idx = random.choices(range(len(solutions)), weights=weights)[0]
             parent1 = solutions[parent1_idx]
-            solutions.pop(parent1_idx)
-            weights.pop(parent1_idx)
             parent2_idx = random.choices(range(len(solutions)), weights=weights)[0]
             parent2 = solutions[parent2_idx]
-            solutions.pop(parent2_idx)
-            weights.pop(parent2_idx)
 
-            child1, child2 = breed(parent1, parent2, mask)
+            child1, child2 = breed_pmx(parent1, parent2, mask)
+
+            if np.random.rand() < mutation_rate:
+                child1 = mutate(child1, mask)
+
+            if np.random.rand() < mutation_rate:
+                child2 = mutate(child2, mask)
+
             next_gen.append(child1)
             next_gen.append(child2)
+        next_gen, next_gen_fitnesses = fitness.check(next_gen)
         solutions = next_gen
+        fitnesses = next_gen_fitnesses
+        if generation % 100 == 0:
+            print("Gen", generation, "Best fitness=", fitnesses[0])
+
+    print("Finished, best fitnesses:", fitnesses[:50])
+
 
 import time
+
 t0 = time.time()
-ga(puzzle=puzzle, n_parents=100, n_generations=10, divisor=2)
+ga(puzzle=puz, n_parents=500, n_generations=1000, divisor=2, mutation_rate=0.02)
 t1 = time.time()
-print("Finished in ", round(t1-t0, 2))
-## Breeding
-# Take out the puzzle supplied values then send them in to pmx
-# Place fixed values back to correct places
-
-## Mutation
-# Just run pmx again? Or scramble
-
-"""
-def train(initial_parents, n_generations=10, first_divisor=2, mutation_rate=0.01):
-    # Evaluate the first set of random solutions
-    solutions, costs = evaluate(initial_parents)
-
-    for _ in range(0, n_generations):
-        weights = []
-        total = 0
-        for i in range(first_divisor, len(solutions) + first_divisor):
-            total += 1 / i
-            weights.append(1 / i)
-
-        for i in range(0, len(solutions), 2):
-            # Combine first and last two elements of 2 different parents
-            parent1 = random.choices(solutions, weights)[0]
-            parent2 = random.choices(solutions, weights)[0]
-
-            child1 = []
-            child1.extend(parent1[:2])
-            child1.extend(parent2[-3:])
-            child2 = []
-            child2.extend(parent1[-3:])
-            child2.extend(parent2[:2])
-
-            # Possible mutation of children
-            if np.random.rand() <= mutation_rate:
-                possible_values = np.arange(0, distribution_costs.shape[1])
-                child1 = mutate(child1, possible_values)
-            if np.random.rand() <= mutation_rate:
-                possible_values = np.arange(0, distribution_costs.shape[1])
-                child2 = mutate(child2, possible_values)
-
-            solutions[i] = child1
-            solutions[i + 1] = child2
-
-        # Now evaluate the new generation
-        solutions, costs = evaluate(solutions)
-        if _ % 200 == 0:
-            print(f"Gen {_} Best solution: {costs[0]} - {solutions[0]}")
-
-    return solutions, costs
-
-
-# Parameters
-firstDivisor = 2  # Used like in the lecture for setting weights. 1/2, 1/3, 1/4....
-num_parents = 200
-generations = 1200
-mutation_rate = 0.03
-
-# make first generation of parents
-initial_solutions = [random_center() for i in range(0, num_parents)]
-print(f"GA with: {num_parents=}, {generations=}, {mutation_rate=}")
-trained_solutions, trained_costs = train(
-    initial_parents=initial_solutions,
-    n_generations=generations,
-    first_divisor=2,
-    mutation_rate=mutation_rate,
-)
-
-print("All solutions:", trained_costs, "\n")
-
-print("Top 10 solutions:")
-for i in range(10):
-    print(f"{i+1:<3} {trained_costs[i]} - {trained_solutions[i]}")
-"""
+print("Finished in ", round(t1 - t0, 2))

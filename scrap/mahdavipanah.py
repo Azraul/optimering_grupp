@@ -290,10 +290,10 @@ def solve(problem_grid, population_size=1000, selection_rate=0.5, max_generation
 
     for i in range(max_generations_count):
         population, best_fitness = selection(population)
-
+        print(len(population))
         if i == max_generations_count - 1 or fitness(population[0]) == 0:
             break
-
+        print("kuk")
         shuffle(population)
         new_population = []
 
@@ -345,7 +345,7 @@ if __name__ == '__main__':
     parser.add_argument("file", help="Input file that contains Sudoku's problem.")
     parser.add_argument("-o", "--output-file", help="Output file to store problem's solution.",
                         type=str, default=None)
-    parser.add_argument("-p", "--population-size", type=int, default=10000)
+    parser.add_argument("-p", "--population-size", type=int, default=2)
     parser.add_argument("-s", "--selection-rate", type=float, default=0.5)
     parser.add_argument("-m", "--max-generations-count", type=int, default=1000)
     parser.add_argument("-u", "--mutation-rate", type=float, default=0.05)
