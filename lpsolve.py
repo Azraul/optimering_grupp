@@ -99,20 +99,27 @@ for s in sudokus:
     for row, r in enumerate(s):
         for column, i in enumerate(r):
             if i != 0:
-                sc.append(f'x{i}{row+1}{column+1} = 1')
+                sc.append(f'x{i}{row+1}{column+1}')
     sudoku_constraints.append(sc)
 
 sample = 5 # Välj vilket sample du vill prova 
 
 # Vi skriver allt till en text fil som man enkelt kan copy pasta över till en lp
-# Vi kunde såklart bara ändrat filen till en .lp och lagt till följande:
 
-# file.write('/* No objective for sudoku */')
-# file.write('\n')
-# file.write('max: ;')
-# file.write('\n')
+# file = open('sudoku_solve.txt', 'w')
+file = open('sudoku_solve.lp', 'w')
 
-file = open('sudoku_solve.txt', 'w')
+file.write('/* Objective for sudoku */')
+file.write('\n')
+file.write('min:')
+file.write('\n')
+
+for i, bin in enumerate(BINARIES):
+    file.write(bin)
+    if(i+1 ==len(BINARIES)):
+        file.write(';')
+    else:
+        file.write(' + ')
 
 file.write('\n')
 file.write('/* Variable Constraints */')
@@ -129,7 +136,7 @@ for i, sudoku in enumerate(sudoku_constraints):
         file.write(f'/* Sudoku0{i} constraints*/')
         file.write('\n')
         for row in sudoku:
-            file.write(row + ';')
+            file.write(row + ' = 1;')
             file.write('\n')
     else:
         pass
@@ -141,12 +148,15 @@ file.write('\n')
 file.write('bin')
 file.write('\n')
 for i, binary in enumerate(BINARIES):
-    file.write(binary)
-    if(i+1 == len(BINARIES)):
-        file.write(';')
+    if(binary not in sudoku_constraints[sample]):
+        file.write(binary)
+        if(i+1 == len(BINARIES)):
+            file.write(';')
+        else:
+            file.write(', ')
+        file.write('\n')
     else:
-        file.write(', ')
-    file.write('\n')
+        pass
         
 
 file.write('\n')
