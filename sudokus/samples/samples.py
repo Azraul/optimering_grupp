@@ -66,11 +66,36 @@ def sudokus():
         [0,0,0,0,0,0,0,6,0]
     ]
 
-    list = []
-    list.append(sudoku00)
-    list.append(sudoku01)
-    list.append(sudoku02)
-    list.append(sudoku03)
-    list.append(sudoku04)
+    ez1 = [
+        [2,1,9,0,4,6,0,3,0],
+        [0,0,5,1,0,0,0,0,0],
+        [7,1,0,0,8,0,0,5,4],
+        [6,0,0,1,0,0,3,0,5],
+        [1,8,5,0,0,0,7,2,0],
+        [0,4,0,6,0,2,8,0,0],
+        [0,6,8,0,0,0,4,0,0],
+        [0,0,0,0,0,0,1,6,2],
+        [0,0,0,4,0,7,5,3,0]
+    ]
+    
+    expert = []
+    expert.append(sudoku00)
+    expert.append(sudoku01)
+    expert.append(sudoku02)
+    expert.append(sudoku03)
+    expert.append(sudoku04)
 
-    return list
+    easy = []
+    easy.append(ez1)
+
+    sudokus = {
+        "easy": [],
+        "expert": [],
+    }
+    sudokus["expert"].extend(expert)
+    sudokus["easy"].extend(easy)
+    return sudokus
+
+
+foo = sudokus()
+print(foo["easy"][0])

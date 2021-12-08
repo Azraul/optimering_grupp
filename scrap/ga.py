@@ -1,21 +1,20 @@
 import random
 import numpy as np
 from typing import List, Tuple
-from pmx import pmx
+from pmx_alt import pmx
 
 
 puz = np.array(
-    [
-        [4, 8, 3, 0, 2, 0, 6, 5, 0],
-        [9, 6, 7, 0, 4, 0, 8, 2, 1],
-        [2, 5, 1, 0, 7, 6, 0, 9, 0],
-        [5, 4, 8, 0, 0, 2, 0, 7, 6],
-        [7, 0, 0, 5, 6, 0, 1, 3, 8],
-        [1, 3, 0, 7, 9, 0, 2, 4, 5],
-        [0, 7, 2, 6, 0, 9, 0, 1, 4],
-        [0, 1, 4, 2, 0, 3, 7, 6, 9],
-        [6, 0, 5, 4, 0, 7, 3, 8, 2],
-    ]
+[[0,8,3,0,2,1,0,0,7],
+[9,6,0,3,0,5,8,2,1],
+[2,5,1,0,0,6,0,9,3],
+[0,4,8,1,0,2,0,7,0],
+[0,2,9,0,0,4,0,3,0],
+[0,3,0,7,0,8,0,4,0],
+[3,7,0,0,0,9,0,1,4],
+[8,1,0,2,5,3,0,6,9],
+[6,9,0,4,0,7,0,8,2],]
+
 )
 Puzzle = np.ndarray  # List[List[int]]
 
@@ -136,10 +135,18 @@ def mutate(genes: Puzzle, mask):
     return genes
 
 
-def ga(puzzle: Puzzle, n_parents=200, n_generations=100, divisor=2, mutation_rate=0.01, selection_ratio=0.25):
+def ga(
+    puzzle: Puzzle,
+    n_parents=200,
+    n_generations=100,
+    divisor=2,
+    mutation_rate=0.01,
+    selection_ratio=0.25,
+):
     print(f"Running ga with: {n_parents=} {n_generations=} {divisor=} {mutation_rate=}")
     solutions = generate_solutions(puzzle, n_parents)
     mask = puzzle == 0
+    prev_best_fitness = 99999
 
     fitness = Fitness(puzzle)
     solutions, fitnesses = fitness.check(solutions)
@@ -151,6 +158,15 @@ def ga(puzzle: Puzzle, n_parents=200, n_generations=100, divisor=2, mutation_rat
         if fitnesses[0] == 0:
             print("Sudoku solved in generation:", generation)
             break
+
+        if generation % 800 == 0:
+            current_best_fitness = fitnesses[0]
+            if (prev_best_fitness - current_best_fitness) == 0:
+                print("No improvement in last 800 generations, restarting population")
+                solutions = generate_solutions(puzzle, n_parents)
+                solutions, fitnesses = fitness.check(solutions)
+                current_best_fitness = fitnesses[0]
+            prev_best_fitness = current_best_fitness
 
         # Select only the best solutions to evolve with ### Holy crap this was a winner move!
         solutions = solutions[0 : int(selection_ratio * len(solutions))]
@@ -189,6 +205,13 @@ def ga(puzzle: Puzzle, n_parents=200, n_generations=100, divisor=2, mutation_rat
 import time
 
 t0 = time.time()
-ga(puzzle=puz, n_parents=500, n_generations=1000, divisor=2, mutation_rate=0.02)
+ga(
+    puzzle=puz,
+    n_parents=1000,
+    n_generations=4000,
+    divisor=2,
+    mutation_rate=0.02,
+    selection_ratio=0.25,
+)
 t1 = time.time()
 print("Finished in ", round(t1 - t0, 2))
