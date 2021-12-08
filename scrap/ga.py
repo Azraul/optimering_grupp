@@ -1,7 +1,7 @@
 import random
 import numpy as np
 from typing import List, Tuple
-from pmx_alt import pmx
+from pmx import pmx
 
 
 puz = np.array(
@@ -207,10 +207,10 @@ import time
 t0 = time.time()
 ga(
     puzzle=puz,
-    n_parents=1000,
-    n_generations=4000,
+    n_parents=3000,
+    n_generations=10000,
     divisor=2,
-    mutation_rate=0.02,
+    mutation_rate=0.1,
     selection_ratio=0.25,
 )
 t1 = time.time()
