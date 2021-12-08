@@ -1,10 +1,45 @@
+"""
+Resources:
 
+Lectures by Kaj-Mikael Björk, Arcada 2021
+https://arcada.itslearning.com/
 
-# I ett sudoku på 9st 3x3 (standard sudoku alltså), har vi 9 rader, 9 columner och siffror 1-9
+Vi bygger upp object funktionen, binära variabler och
+alla våra behövliga constraints.
+
+Vi kommer att söka efter minsta möjliga lösning (alltså 81 binära svar)
+
+Vi bygger varje cell med xVärdeRadKolumn
+    t.ex. första rutan, högst upp till vänster är en 3:a
+    x311    -     x   3       1       1
+                    Värde    Rad    Kolumn
+
+Sen skriver vi ut allt till en lp fil
+
+Vi har en binär för varje val, dvs. 9 siffror och 81 val (9rader * 9 columner)
+Alltså 729 st olika binära alterantiv
+    -   Några av dessa kommer sedan inte skrivas ut som binära eftersom varje sudoku
+        startar med en hel del färdiga positioner/celler.
+    -   Ta x311 från ovan, om den första rutan högst upp till vänster ska vara True
+        x311 = 1; kommer vi inte ha den med i listan över binära tal
+        p.g.a. lpsolve då omdefinerar vårt constraint till x311 kan vara 0 eller 1.
+
+För att få våran sudoku att fungera måste vi ha 4 olika typer av constraints.
+Varje värde får endast hamna 1 gånger per:
+Rad, 9 rader * 9 siffror = 81 constraints
+Kolumn, 9 kolumner * 9 siffror = 81 constraints
+3x3 låda/rutnät, 9 lådor * 9 siffror = 81 constraints
+Val/cell, 81 celler = 81 constraints
+Totalt får vi då 324 constraints och 729 binära tal för lpsolve
+Vi har även ett antal till constraints som direct kommer överskrida våra cell
+konstraints i form av sudokuns färdiga rutor.
+
+"""
+
+# I ett sudoku på 9st 3x3 (standard sudoku), har vi 9 rader, 9 columner och siffror 1-9
 VALS = ROWS = COLS = range(1, 10)
 
-# Vi har en binär för varje val, dvs. 9 siffror och 81 val (9rader * 9 columner)
-# Alltså 729 st olika binära alterantiv
+# våra 729 binära tal som strings i en lista
 BINARIES = []
 
 for V in VALS:
@@ -12,17 +47,7 @@ for V in VALS:
         for C in COLS:
             BINARIES.append(f'x{V}{R}{C}')
 
-
-# För att få våran sudoku att fungera måste vi ha 4 olika typer av constraints.
-# Varje värde får endast hamna 1 gånger per:
-# Rad, 9 rader * 9 siffror = 81 constraints
-# Kolumn, 9 kolumner * 9 siffror = 81 constraints
-# 3x3 låda/rutnät, 9 lådor * 9 siffror = 81 constraints
-# Val/cell, 81 celler = 81 constraints
-# Totalt får vi då 324 constraints och 729 binära tal för lpsolve
-# Vi har även ett antal till constraints som direct kommer överskrida våra cell
-# konstraints i form av sudokuns färdiga rutor.
-
+# alla våra 324 constraints, färdiga som strings i listor
 CONSTRAINTS = []
 
 # max 1 siffra per rad
@@ -86,12 +111,15 @@ print('COLUMN:', CONSTRAINTS[81])
 print('CELL:', CONSTRAINTS[162])
 print('BOX:', CONSTRAINTS[243])
 
+# importera våra sudoku samples
 from sudokus.samples import samples
 sudokus = samples.sudokus()
 
 
 
-# list alla sudokus constraints
+# lista alla sudokus celler med constraints i listor som stringar
+## Vi måste lägga till själva constrainet senare när vi skriver till en fil
+## Det för att enkelt kunna jämnaföra våra sudoku celler med de binära
 sudoku_constraints = []
 
 for s in sudokus:
@@ -102,11 +130,11 @@ for s in sudokus:
                 sc.append(f'x{i}{row+1}{column+1}')
     sudoku_constraints.append(sc)
 
-sample = 5 # Välj vilket sample du vill prova 
+sample = 5 # Välj 5, det är enkelt nog till lpsolve
 
-# Vi skriver allt till en text fil som man enkelt kan copy pasta över till en lp
+# Vi skriver allt till en lp fil
+# Sen är det bara att köra med lpsolve
 
-# file = open('sudoku_solve.txt', 'w')
 file = open('sudoku_solve.lp', 'w')
 
 file.write('/* Objective for sudoku */')
@@ -147,6 +175,9 @@ file.write('/* Binaries */')
 file.write('\n')
 file.write('bin')
 file.write('\n')
+
+# Vi skriver bara de binaries som inte är definerade från vårt sudoku redan
+
 for i, binary in enumerate(BINARIES):
     if(binary not in sudoku_constraints[sample]):
         file.write(binary)
@@ -163,9 +194,5 @@ file.write('\n')
 
 file.close()
 
-# Trots att problemt är fullt funktionelt tycks lpsolve inte riktigt kunna lösa sudokun.
-# Efter ca 5h väntande och 500 miljoner iterationer gav vi upp på lpsolve.
-
-# P.S ser ut som vi måste ta bort binary definition på variabler som är sudoku defined, t.ex.
-# sudoku constraint: 311 = 1
-# ta då bort binary setting av 311, annars tycks den bli om definerad
+# Trots att problemt är fullt funktionelt tycks lpsolve inte riktigt kunna lösa svårare sudokun inom rimlig tid.
+# Därför satta vi in ett 5:e sample, sudoku05, som är av graden easy vilket den lyckas lösa snabbt och effektivt
