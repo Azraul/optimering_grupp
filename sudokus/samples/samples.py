@@ -2,6 +2,7 @@
 # sudoku pussles, taken from:
 # https://sudoku.com/expert/
 # expert level used for all 5 samples
+## added 6th easy sudoku sample
 
 
 def sudokus():
@@ -66,11 +67,25 @@ def sudokus():
         [0,0,0,0,0,0,0,6,0]
     ]
 
+    # easy sudoku
+    sudoku05 = [
+        [3,4,0,2,6,0,8,0,1],
+        [0,2,0,5,0,8,3,0,0],
+        [0,0,1,0,3,0,0,0,0],
+        [0,6,2,0,4,7,0,9,8],
+        [4,0,0,0,5,0,0,0,2],
+        [5,0,8,1,9,0,7,6,0],
+        [0,1,0,0,8,5,0,2,0],
+        [0,8,7,0,0,0,9,1,0],
+        [0,0,0,9,7,0,0,8,0]
+    ]
+
     list = []
     list.append(sudoku00)
     list.append(sudoku01)
     list.append(sudoku02)
     list.append(sudoku03)
     list.append(sudoku04)
+    list.append(sudoku05)
 
     return list
