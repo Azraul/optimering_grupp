@@ -42,7 +42,20 @@ Totally can solve sudoku04 (expert)
 ## Linjär programmering i Python med PuLP
 Asdasdasd
 ## Backtracking i Python
-Asdasdasd
+Backtracking är en algoritm där man återgår till föregående steg eller lösning så snart man kan fastställa att den nuvarande lösning inte kan bli en komplett lösning. Vi kommer att använda denna princip för backtracking för att implementera följande algoritm.
+
+Algoritmens uppgift är att leta efter tomma rutor i sudokun och sedan försöka placera 1–9 i rutan. När algoritmen har valt ut en ruta och placerat en siffra i den så kontrolleras det att siffran inte redan finns i y eller x axeln och inte i ett 3x3 rutnät. Ifall siffran inte är giltig går den tillbaka och försöker med nästa siffra 1-9. Ifall sifforna inte passar går den vidare till nästa ruta. 
+
+Detta upprepas för varje ruta tills det inte finns nå tomma rutor kvar. När det inte finns någon tom ruta kvar så har vi vår lösning.
+
+Algoritmen klarar av att lösa alla sudokun förutom easy sudoku 01.
+
+Easy sudoku 02
+!(/img/backtracking_easy02.jpg)
+
+Hard sudoku 04
+!(/img/backtracking_hard04.jpg)
+
 ## Genetisk algorithm i Python
 Asdasd
 # Jämnförelser
