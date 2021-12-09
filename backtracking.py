@@ -86,4 +86,12 @@ grid = [
 
 
 # sen grid/sudoku of choice into function
-solve(sudokus['expert'][4])
+#solve(sudokus['expert'][4])
+
+# Vi skriver allt till txt-file
+
+to_solve = [sudokus['easy'][2], sudokus['expert'][4]]
+
+for sudoku in to_solve:
+        print(f"{np.array(sudoku)}")
+        print(f"{solve(sudoku)}\n\n")
