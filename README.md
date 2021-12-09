@@ -487,7 +487,9 @@ Vi kan enkelt konstatera att:
 
 ![hastighet](/img/bar_chart.png)
 
-Med så stora skillnader i lösningstiderna blir vår grafik inte speciellt användbar och trots lpsolves stora stapel är det trots allt GA – PMX som bör intressera då den inte överhuvudtaget kunde lösa det svårare sudokut.
+Med så stora skillnader i lösningstiderna blir vår grafik inte speciellt användbar och trots lpsolves stora stapel  är det trots allt GA – PMX som bör intressera då den inte överhuvudtaget kunde lösa det svårare sudokut dock  löser backtracking snabbast lätta puzzel men tar längre tid för att lösa en del av de svårare puzzlen. 
+
+Hastigheten är mellan 1 ms och 4 sekunder. Eftersom algoritmen n inte kommer ihåg tidigare besökta celler så  måste den göra beräkningarna på nytt. Detta gör att puzzel med mycket tomma rutor är tidskrävande att lösa.
 
 
 ## Komplexitet
