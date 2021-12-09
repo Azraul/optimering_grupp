@@ -204,6 +204,7 @@ def ga(
             parent2 = solutions[parent2_idx]
 
             child1, child2 = breed_pmx(parent1, parent2, mask)
+            #child1, child2 = breed_swap_rows(parent1, parent2, mask)
 
             # Chance for the children to mutate.
             # Swaps two elements in a row
@@ -222,14 +223,14 @@ def ga(
         if generation % 100 == 0:
             print("Gen", generation, "Best fitness=", fitnesses[0])
 
-    print("Finished, best fitnesses:", fitnesses[:50])
+    print("Finished, best fitnesses:", fitnesses[:10])
     print("Best solution:\n", solutions[0])
 
 
 """ Run GA """
 import time
 
-puzzle = np.array(sudokus["easy"][2])
+puzzle = np.array(sudokus["easy"][1])
 t0 = time.time()
 ga(
     puzzle=puzzle,

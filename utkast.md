@@ -153,6 +153,7 @@ En GA består då av följande komponenter:
 Det sägs att GA är bra till att lösa TSP problem, vilket är huvudsakliga orsaken vi valt försöka lösa sudoku med GA är för att (enligt vår enkla uppfattning) sudoku kan ses som ett TSP där bara en nod("siffra") kan besökas ("placeras") utan att man besöker den noden igen (unik siffra per rad/kolumn/cell).
 
 Och eftersom vi ser det som ett traveling salesman problem, använder vi PMX från tidigare hemuppgiften för att korsa lösningarnas x-axel rader.
+Under våran research hittade vi **inga andra artiklar med PMX**, vilket gör våra resultat och forskning unik!
 
 ### Implementation
 
@@ -214,9 +215,11 @@ Vi fann att 10% mutation chans ökar på genetiska diversiteten utan att göra l
 | Parameter     | Värde  |
 |---            |---     |
 |Korsare        |PMX     |
+|Sudoku         |easy_02(supereasy) |
 |Generationer   |3000    |
-|Mutation rate  |10%     |
-|Selection ratio|25%     |
+|Tid | 2.57s |
+|# Generationer | 8 |
+|Restarts | 0|
 ```
 Puzzle:
 [[0 8 3 0 2 1 0 0 7]
@@ -248,6 +251,146 @@ Finished in  2.57
 
 PMX lyckas lösa easy_02 i 2.57 sekunder på generation 8
 
+#### Easy_02 - Row Swap
+| Parameter     | Värde  |
+|---            |---     |
+|Sudoku         |easy_02(supereasy) |
+|Korsare        |Row Swap|
+|Generationer   |3000    |
+|Tid | 7.29s |
+|# Generationer | 53 |
+|Restarts | 0|
+```
+[[0 8 3 0 2 1 0 0 7]
+ [9 6 0 3 0 5 8 2 1]
+ [2 5 1 0 0 6 0 9 3]
+ [0 4 8 1 0 2 0 7 0]
+ [0 2 9 0 0 4 0 3 0]
+ [0 3 0 7 0 8 0 4 0]
+ [3 7 0 0 0 9 0 1 4]
+ [8 1 0 2 5 3 0 6 9]
+ [6 9 0 4 0 7 0 8 2]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 16
+Gen 0 Best fitness= 16
+Sudoku solved in generation: 53
+Finished, best fitnesses: [0, 0, 2, 2, 2, 2, 2, 2, 2, 2]
+Best solution:
+ [[4 8 3 9 2 1 6 5 7]
+ [9 6 7 3 4 5 8 2 1]
+ [2 5 1 8 7 6 4 9 3]
+ [5 4 8 1 3 2 9 7 6]
+ [7 2 9 5 6 4 1 3 8]
+ [1 3 6 7 9 8 2 4 5]
+ [3 7 2 6 8 9 5 1 4]
+ [8 1 4 2 5 3 7 6 9]
+ [6 9 5 4 1 7 3 8 2]]
+Finished in  7.29
+```
+Row swap löser easy_02 i 7.29 sekunder på generation 53. PMX är bättre?!
+#### Easy_01 - Row Swap
+| Parameter     | Värde  |
+|---            |---     |
+|Sudoku         |easy_01 |
+|Korsare        |Row Swap|
+|Generationer   |3000    |
+|Tid | 595s |
+|# Generationer | 4811 |
+|Restarts | 4|
+```
+[[0 1 0 0 4 0 2 8 0]
+ [2 5 0 8 3 0 0 6 9]
+ [0 8 4 0 0 0 0 0 0]
+ [0 0 0 0 5 0 9 0 0]
+ [7 0 0 3 9 0 0 2 8]
+ [1 9 6 2 8 0 0 7 3]
+ [0 0 8 0 0 0 6 9 0]
+ [0 0 9 7 6 0 8 1 5]
+ [0 6 0 0 2 8 0 0 0]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 24
+Gen 0 Best fitness= 24
+Gen 100 Best fitness= 10
+Gen 200 Best fitness= 10
+Gen 300 Best fitness= 10
+Gen 400 Best fitness= 10
+Gen 500 Best fitness= 8
+Gen 600 Best fitness= 8
+Gen 700 Best fitness= 8
+Gen 800 Best fitness= 8
+Gen 900 Best fitness= 8
+No improvement in last 500 generations, restarting population
+.
+.
+.
+No improvement in last 500 generations, restarting population
+Gen 4000 Best fitness= 23
+Gen 4100 Best fitness= 8
+Gen 4200 Best fitness= 6
+Gen 4300 Best fitness= 6
+Gen 4400 Best fitness= 6
+Gen 4500 Best fitness= 6
+Gen 4600 Best fitness= 6
+Gen 4700 Best fitness= 4
+Gen 4800 Best fitness= 2
+Sudoku solved in generation: 4811
+Finished, best fitnesses: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Best solution:
+ [[6 1 3 5 4 9 2 8 7]
+ [2 5 7 8 3 1 4 6 9]
+ [9 8 4 6 7 2 3 5 1]
+ [8 3 2 1 5 7 9 4 6]
+ [7 4 5 3 9 6 1 2 8]
+ [1 9 6 2 8 4 5 7 3]
+ [3 7 8 4 1 5 6 9 2]
+ [4 2 9 7 6 3 8 1 5]
+ [5 6 1 9 2 8 7 3 4]]
+Finished in  595.45
+```
+Row swap löser easy_01 i 4 generation restarts, 595 sekunder och 4811 generationer.
+#### Easy_01 - PMX
+| Parameter     | Värde  |
+|---            |---     |
+|Sudoku         |easy_01 |
+|Korsare        |PMX |
+|Generationer   |3000    |
+|Tid | 248s |
+|# Generationer | 1075 |
+|Restarts | 1| 
+```
+[[0 1 0 0 4 0 2 8 0]
+ [2 5 0 8 3 0 0 6 9]
+ [0 8 4 0 0 0 0 0 0]
+ [0 0 0 0 5 0 9 0 0]
+ [7 0 0 3 9 0 0 2 8]
+ [1 9 6 2 8 0 0 7 3]
+ [0 0 8 0 0 0 6 9 0]
+ [0 0 9 7 6 0 8 1 5]
+ [0 6 0 0 2 8 0 0 0]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 26
+Gen 0 Best fitness= 26
+Gen 100 Best fitness= 2
+.
+.
+.
+No improvement in last 500 generations, restarting population
+Gen 1000 Best fitness= 23
+Sudoku solved in generation: 1075
+Finished, best fitnesses: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Best solution:
+ [[6 1 3 5 4 9 2 8 7]
+ [2 5 7 8 3 1 4 6 9]
+ [9 8 4 6 7 2 3 5 1]
+ [8 3 2 1 5 7 9 4 6]
+ [7 4 5 3 9 6 1 2 8]
+ [1 9 6 2 8 4 5 7 3]
+ [3 7 8 4 1 5 6 9 2]
+ [4 2 9 7 6 3 8 1 5]
+ [5 6 1 9 2 8 7 3 4]]
+Finished in  248.56
+```
+PMX löser easy_01 med 1 generation restart, 248 sekunder i 1075 generationer. PMX är dubbelt snabbare än row swap.
 # Jämförelser
 
 ## Lösningsförmåga
