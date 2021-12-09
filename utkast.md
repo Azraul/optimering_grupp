@@ -425,27 +425,15 @@ PMX löser easy_01 med 1 generation restart, 248 sekunder i 1075 generationer. P
 
 ## Lösningsförmåga
 
-Asdasdasd
-
-de är alla smartare än oss(inte sudoku GA)
-
+GA är ett förfärligt sätt att lösa sudokun. Den hamnar ofta i lokala minimum som inte löser ut sig själva utan att omstarta populationen. Bara de enklaste svårighetsgraderna kan lösas. PMX och Row Swap korsningsmetoderna verkar båda lika kapabla att lösa enkla pussel.
 ## Hastighet
 
-Asdasd
-
-de är alla snabbare än oss
+GA: Enkla pussel blir lösta på mellan 5 och 15 minuter. PMX är dubbelt snabbare än Row Swap att komma till en konvergation.
 
 ## Komplexitet
-
-Asdasd
-
-de är alla mindre komplexa än oss
+ mindre komplexa än oss
 
 ## Reflektioner
-
-asdasdasdasd
-
-ai supreme, when do we get replaced?
 
 # Källor
 
