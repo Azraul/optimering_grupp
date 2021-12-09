@@ -68,8 +68,10 @@ sudokus = samples.sudokus()
 # Därför loopar vi igenom våra exmpel sudokun (list of lists) och sparar deras contraints i en ny variable
 sudokus_constraints = []
 
+level = 'easy'  # expert    / easy
+sample = 2      # 0-4       / 0-2
 
-for s in sudokus['expert']:
+for s in sudokus[level]:
     sc = []
     for row, r in enumerate(s):
         for column, i in enumerate(r):
@@ -77,7 +79,7 @@ for s in sudokus['expert']:
                 sc.append(tuple((i, row+1, column+1)))
     sudokus_constraints.append(sc)
 
-input_data = sudokus_constraints[4]
+input_data = sudokus_constraints[sample]
 
 # Sen lägger vi till dessa nya constraints i vårt problem
 # t.ex. att en 5:a på rad 2, column 4 måste vara true
@@ -108,7 +110,17 @@ prob.writeLP("Sudoku.lp")
 #                               (+ varierande absoluta constraints per sudoku)
 
 # PuLP väljer bösta lösare (solver) och löser problemet. #run() från lpSolve :D
-prob.solve()
+
+from time import time_ns
+
+# stop tiden - start tiden, printar tiden det tog
+def timeTaken(msStart):
+    msStop = time_ns() // 1000000 
+    msTaken = msStop - msStart
+    print('Time: ',msTaken,' ms')
+
+
+msStart = time_ns() // 1000000 
 
 # Fin data som tid, memory, osv, precis som lpSolve
 print("Status:", LpStatus[prob.status])
@@ -154,3 +166,4 @@ while True:
 # skriv ut lösningen
 # finare print med numpy array
 print(np.array(solution))
+timeTaken(msStart)
