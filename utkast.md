@@ -23,37 +23,136 @@ Vi kommer välja sudokun i varierande svårighetsgrad med bias för första läm
 
 ![sudoku example](/img/sudoku_good_bad.png)
 
+Vi kommer välja en handfull med lämpliga sudokun och spara dem i en Python modul som vi enkelt kan importera och nyttja i samtliga lösningar för projektet. 
+
 # Lösningar
 I följande kapitel kommer vi presentera våra olika metoder för att lösa sudoku.
 
-![think](/img/thinking_meme.jpg)
+<img src="img/thinking_meme.jpg" alt="drawing" width="200"/>
 
 **notis:**
 https://en.wikipedia.org/wiki/Sudoku_solving_algorithms
 
-## Linjär programmering i lp_solve
-asdasdasd
+## Linjär programmering i lpsolve
+Programmet för linjär programmering med blandade heltal (engelska MILP) kan lösa sudokun med rätt begränsningar och variabler. För att logiskt kunna utesluta valde vi att bygga upp våra variabler på följande sätt:
 
-lp_solve much good!
-Totally can solve sudoku04 (expert)
+Sudokuna vi valt att arbeta med har 81 celler, dessa 81 celler har alla 9 möjligheter, en för varje siffra mellan 1 - 9.
 
-<img src="img/lpsolve_sudoku04_thisisfine_zoom.png" alt="drawing" width="400"/>
+Därmed kommer vi definiera 729 (81 * 9) olika binära variabler. De binära variablerna beskrivs med x som generisk variabel term följt av numeriska värdet 1–9, därefter rad och kolumn även de med siffrorna 1–9, t.ex. en 3: a i första rutan, högst upp till vänster beskrivs med x311.
+
+| | Värde | Rad | Kolumn |
+|-------|-----|--------|---|
+| x     | 3   | 1      | 1 |
+
+
+Vi behöver sedan i huvudsak 4 generella begränsningar:
+1.	Varje cell får endast innehåll ett värde
+2.	Varje rad får endast innehåll ett av varje värde 1–9
+3.	Varje kolumn får endast innehåll ett av varje värde 1–9
+4.	Varje låda får endast innehåll ett av varje värde 1–9
+
+För att begränsa varje cell till 1 värde adderar vi alla våra binänar värden för varje cell med begränsning att de tillsammans skall ha summan 1, t.ex. cellen i första raden, första kolumn:
+
+x111 + x211 + x311 + x411 + x511 + x611 + x711 + x811 + x911 = 1
+
+För att begränsa att en rad endast får ha ett av varje värde adderar vi samma värde för hela raden och begränsar det till 1, t.ex. endast ett värde 1 i den första raden:
+
+x111 + x112 + x113 + x114 + x115 + x116 + x117 + x118 + x119 = 1
+
+Samma logik gäller även för kolumner:
+
+x111 + x121 + x131 + x141 + x151 + x161 + x171 + x181 + x191 = 1
+
+Och för lådor:
+
+x111 + x112 + x113 + x121 + x122 + x123 + x131 + x132 + x133 = 1
+
+Varje huvudsaklig begränsning kommer därmed bestå av 81 begränsningar för totalt 324 begränsningar allt som allt.
+
+Vi kan nu börja definiera ett sudoku, lyckligtvis är det relativt simpelt då ett sudoku kommer med färdiga celler ifyllda, vi behöver endast utesluta de cellerna från våra binära variabler och istället begränsa cellerna enligt sudokut, t.ex. är första radens första kolumn en 3: a sätter vi helt enkelt:  x311 = 1.
+
+Nu med all vår logik färdig gäller det bara att skriva in alla våra 1053 olika påståenden i lpsolve.
+Vi valde att skriva ett Python program som skriver en lp-fil i stället, vi kombinerade det med våra färdiga sudokun.
+
+Vi provade ett relativt enkelt sudoku, sudoku-easy 02:
+
+### Grafisk layout av easy sudoku 02
+
+<img src="img/easy_02_sudoku.png" alt="drawing" width="400"/>
+ 
+Resultat från solvern:
+
+    -    In the total iteration count 342, 136 (39.8%) were bound flips.
+    -    There were 3 refactorizations, 0 triggered by time and 3 by density.
+    -    ... on average 68.7 major pivots per refactorization.
+    -    The largest [LUSOL v2.2.1.0] fact(B) had 1075 NZ entries, 1.0x largest basis.
+    -    The maximum B&B level was 1, 0.0x MIP order, 1 at the optimal solution.
+    -    The constraint matrix inf-norm is 1, with a dynamic range of 1.
+    -    Time to load data was 0.006 seconds, presolve used 0.005 seconds,
+    -    ... 0.023 seconds in simplex solver, in total 0.034 seconds.
+    -    34ms för lpsolve för ett enkelt sudoku.
+
+### Grafisk lösning easy sudoku 02
+
+<img src="img/easy_02_solution.png" alt="drawing" width="400"/>
+    
+Vi provar ett svårare, sudoku-expert 04:
+
+<img src="img/expert_04_sudoku.png" alt="drawing" width="400"/>
+        
+
+Dock efter över 8 timmar och nästan 800 miljoner iterationer stoppade vi solvern och gav upp på problemet. 
+
+ <img src="img/lpsolve_sudoku04_thisisfine_zoom.png" alt="drawing" width="400"/>
+
+Lpsolve har helt tydligt stött på en begränsning, vi antar att lpsolve försöker använda sina råa styrka (brute-force) för att linjärt helt enkelt prova alla kombinationer och även om problemet kanske är helt fullt ut möjligt att lösa finns det för många kombinationer i detta svårare sudokut för att lösa det inom en rimlig tid.
+
+Första raden har 7 saknade celler med 7 olika siffror, det bör alltså finnas 181 440 permutationer (9*8*7*6*5*4*3). Multiplicera sedan detta med följande rad av samma kvantitet och vi kommer snabbt uppnå en storlek vi inte hinner lösa med lpsolve.
+
+
+
 
 ## Linjär programmering i Python med PuLP
-Asdasdasd
+Typ samma som lpsolve
+
+asdasdasdasd
+
+kommer inte bli mkt txt
+
+asdasdasd
 ## Backtracking i Python
 Asdasdasd
+
+förklara backtracking
+
+gif? img? omg?
+
+asdasdasd
 ## Genetisk algorithm i Python
+
 Asdasd
+
+pmx, pms, smp
+
+asdasd
+
 # Jämnförelser
 ## Lösningsförmåga
 Asdasdasd
+
+de är alla smartare än oss
 ## Hastighet
 Asdasd
+
+de är alla snabbare än oss
 ## Komplexitet
 Asdasd
+
+de är alla mindre komplexa än oss
 ## Reflektioner
 asdasdasdasd
+
+ai supreme, when do we get replaced?
 
 
 
