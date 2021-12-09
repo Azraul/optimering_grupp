@@ -230,11 +230,11 @@ def ga(
 """ Run GA """
 import time
 
-puzzle = np.array(sudokus["easy"][1])
+puzzle = np.array(sudokus["medium"][0])
 t0 = time.time()
 ga(
     puzzle=puzzle,
-    n_parents=3000,
+    n_parents=8000,
     n_generations=10000,
     divisor=2,
     mutation_rate=0.1,

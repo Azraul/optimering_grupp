@@ -115,10 +115,26 @@ def sudokus():
         ]
     )
 
+    medium = []
+    
+    medium.append(
+        [
+            [6,5,0,4,3,0,0,0,0],
+            [0,0,0,0,7,5,0,3,0],
+            [0,4,3,0,0,0,0,5,8],
+            [1,9,7,3,8,4,0,0,0],
+            [0,0,0,9,0,0,0,0,0],
+            [0,0,0,7,0,0,1,0,9],
+            [0,6,0,0,0,0,0,9,0],
+            [9,0,2,5,0,3,0,1,0],
+            [8,3,0,0,9,0,0,0,7]
+        ]
+    )
+
     sudokus = {
-        "easy": [],
-        "expert": [],
+        "easy": easy,
+        "medium": medium,
+        "expert": expert,
     }
-    sudokus["expert"].extend(expert)
-    sudokus["easy"].extend(easy)
+
     return sudokus
