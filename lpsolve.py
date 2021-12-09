@@ -122,7 +122,7 @@ sudokus = samples.sudokus()
 ## Det för att enkelt kunna jämnaföra våra sudoku celler med de binära
 sudoku_constraints = []
 
-for s in sudokus:
+for s in sudokus['easy']: # easy, lp and expert don't work!
     sc = []
     for row, r in enumerate(s):
         for column, i in enumerate(r):
@@ -130,7 +130,7 @@ for s in sudokus:
                 sc.append(f'x{i}{row+1}{column+1}')
     sudoku_constraints.append(sc)
 
-sample = 5 # Välj 5, det är enkelt nog till lpsolve
+sample = 2 # Välj 2, det är enkelt nog till lpsolve
 
 # Vi skriver allt till en lp fil
 # Sen är det bara att köra med lpsolve

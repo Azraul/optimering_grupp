@@ -69,7 +69,7 @@ sudokus = samples.sudokus()
 sudokus_constraints = []
 
 
-for s in sudokus:
+for s in sudokus['expert']:
     sc = []
     for row, r in enumerate(s):
         for column, i in enumerate(r):

@@ -86,4 +86,4 @@ grid = [
 
 
 # sen grid/sudoku of choice into function
-solve(sudokus[5])
+solve(sudokus['expert'][4])
