@@ -129,11 +129,33 @@ Detta upprepas för varje ruta tills det inte finns nå tomma rutor kvar. När d
 
 Algoritmen klarar av att lösa alla sudokun förutom easy sudoku 01.
 
-### Easy sudoku 02
-![backtracking example1](/img/backtracking_easy02.png)
+Vi tar och löser samma sudokun som i LP-lösningarna: 
 
+### Easy sudoku 02
+	solution  1 :                           [[4 8 3 9 2 1 6 5 7]
+	iterations: 213                          [9 6 7 3 4 5 8 2 1]
+	Time:  1  ms                             [2 5 1 8 7 6 4 9 3]     
+	 	                                     [5 4 8 1 3 2 9 7 6]
+	                                         [7 2 9 5 6 4 1 3 8]
+	                                         [1 3 6 7 9 8 2 4 5]
+	                                         [3 7 2 6 8 9 5 1 4]
+	                                         [8 1 4 2 5 3 7 6 9]
+	                                         [6 9 5 4 1 7 3 8 2]]                                
+
+Backtracking är hit tills den snabbaste metoden att lösa ett enkelt sudoku med. 
+	 
 ### Hard sudoku 04
-![backtracking example1](/img/backtracking_hard04.png)
+	solution  1 :                           [[5 2 1 3 8 9 7 4 6]
+	iterations: 427579                       [4 3 8 7 6 5 9 1 2]
+	Time:  545  ms                           [6 9 7 2 1 4 8 3 5]
+                                             [3 6 5 8 9 1 2 7 4]
+                                             [8 7 2 4 5 3 6 9 1]
+                                             [1 4 9 6 7 2 3 5 8]
+                                             [7 8 4 1 3 6 5 2 9]
+                                             [2 5 6 9 4 7 1 8 3]
+                                             [9 1 3 5 2 8 4 6 7]]
+
+För det svårare sudokut är PuLP bättre än backtracking.
 
 ## Genetisk algorithm i Python
 Källor: 

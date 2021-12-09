@@ -86,9 +86,10 @@ grid = [
 
 
 # sen grid/sudoku of choice into function
+#solve(sudokus['easy'][2])
 #solve(sudokus['expert'][4])
 
 to_solve = [sudokus['easy'][2], sudokus['expert'][4]]
 for sudoku in to_solve:
-        print(f"{np.matrix(sudoku)}")
+        #print(f"{np.matrix(sudoku)}")
         print(f"{solve(sudoku)}\n\n")
