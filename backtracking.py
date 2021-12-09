@@ -12,13 +12,6 @@ from time import time_ns
 from sudokus.samples import samples
 sudokus = samples.sudokus()
 
-# iterations, bör vara global pga. recursive & resets
-### Kan bygga en funktion som kallas men blir mindre tydligt då
-iterations = 0
-
-# startar iden i nano sekunder (undviker float32 oprecision)
-msStart = time_ns() // 1000000 
-
 # stop tiden - start tiden, printar tiden det tog
 def timeTaken(msStart):
     msStop = time_ns() // 1000000 
@@ -70,20 +63,19 @@ def solve(grid):
     timeTaken(msStart)
     print(np.matrix(grid))
     i = i + 1
-
-# sample grid
-grid = [
-    [5,3,0,0,7,0,0,0,0],
-    [6,0,0,1,9,5,0,0,0],
-    [0,9,8,0,0,0,0,6,0],
-    [8,0,0,0,6,0,0,0,3],
-    [4,0,0,8,0,3,0,0,1],
-    [7,0,0,0,2,0,0,0,6],
-    [0,6,0,0,0,0,2,8,0],
-    [0,0,0,4,1,9,0,0,5],
-    [0,0,0,0,8,0,0,7,9]
-]
+    msStart = time_ns() // 1000000 # reset time ifall det finns mer lösningar
 
 
-# sen grid/sudoku of choice into function
-solve(sudokus['expert'][4])
+
+level = 'easy'  # expert    / easy
+sample = 2      # 0-4       / 0-2
+
+# iterations, bör vara global pga. recursive & resets
+### Kan bygga en funktion som kallas men blir mindre tydligt då
+iterations = 0
+# startar iden i nano sekunder (undviker float32 oprecision)
+msStart = time_ns() // 1000000 
+
+
+
+solve(sudokus[level][sample])
