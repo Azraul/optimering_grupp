@@ -244,9 +244,9 @@ Vi fann att 10% mutation chans ökar på genetiska diversiteten utan att göra l
 |---            |---     |
 |Korsare        |PMX     |
 |Sudoku         |easy_02(supereasy) |
-|Generationer   |3000    |
+|Kromosomer   |3000    |
 |Tid | 2.57s |
-|# Generationer | 8 |
+|Generationer | 8 |
 |Restarts | 0|
 ```
 Puzzle:
@@ -284,9 +284,9 @@ PMX lyckas lösa easy_02 i 2.57 sekunder på generation 8
 |---            |---     |
 |Sudoku         |easy_02(supereasy) |
 |Korsare        |Row Swap|
-|Generationer   |3000    |
+|Kromosomer   |3000    |
 |Tid | 7.29s |
-|# Generationer | 53 |
+|Generationer | 53 |
 |Restarts | 0|
 ```
 [[0 8 3 0 2 1 0 0 7]
@@ -321,9 +321,9 @@ Row swap löser easy_02 i 7.29 sekunder på generation 53. PMX är bättre?!
 |---            |---     |
 |Sudoku         |easy_01 |
 |Korsare        |Row Swap|
-|Generationer   |3000    |
+|Kromosomer   |3000    |
 |Tid | 595s |
-|# Generationer | 4811 |
+|Generationer | 4811 |
 |Restarts | 4|
 ```
 [[0 1 0 0 4 0 2 8 0]
@@ -381,9 +381,9 @@ Row swap löser easy_01 i 4 generation restarts, 595 sekunder och 4811 generatio
 |---            |---     |
 |Sudoku         |easy_01 |
 |Korsare        |PMX |
-|Generationer   |3000    |
+|Kromosomer   |3000    |
 |Tid | 248s |
-|# Generationer | 1075 |
+|Generationer | 1075 |
 |Restarts | 1| 
 ```
 [[0 1 0 0 4 0 2 8 0]
