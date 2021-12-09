@@ -194,7 +194,7 @@ Till våra easy-level sudokun tycks det räcka med en population av 3000.
 
 #### Fitness
 
-Fitness evalueraren är baserad på Fendrich 2010 http://fendrich.se/blog/2010/05/05/solving-sudoku-with-genetic-algorithms/ , där fitness är bestämt på hur många konflikter(duplikater av siffror) lösningen har rad- kolumn- och cellvis. Lösningarna returneras sorterade med sina respektive poäng.
+Fitness evalueraren är baserad på Fendrich 2010, där fitness är bestämt på hur många konflikter(duplikater av siffror) lösningen har rad- kolumn- och cellvis. Lösningarna returneras sorterade med sina respektive poäng.
 
 #### Val av lösningar
 
@@ -205,7 +205,9 @@ Detta ledde till populationer som kom till cirka 15 konflikter men konvergerade 
 
 Till nästa lät vi para ihop lösningarna i rangordning och så att en lösning bara paras en gång. Detta ledde till en helt homogen population som inte kunde förbättras.
 
-https://nidragedd.github.io/sudoku-genetics/ väljer top % av populationen till att fortplanta med(=selection ratio). Vi implementerade detta också och använder top 25% av lösningarna. Från de här 25% av lösningarna genereras `n_parents` antal nya barn. En fördel med selection ratio är försnabbad beräkning av en nya generation. Med detta lyckas GA:n lösa easy\_02 vilket är en bra framgång, dock ännu en besvikelse då easy\_02 har 31 ofyllda platser, varav många rader har bara 2 stycken ofyllda platser. De andra easy pusslena vill inte än konvergera.
+Degardin 2019 väljer de bästa 25% av populationen till att fortplanta med(en så kallad *selection ratio*).
+
+Vi implementerade detta också och använder top 25% av lösningarna. Från de här 25% av lösningarna genereras `n_parents` antal nya barn. En fördel med selection ratio är försnabbad beräkning av en nya generation. Med detta lyckas GA:n lösa easy\_02 vilket är en bra framgång, dock ännu en besvikelse då easy\_02 har 31 ofyllda platser, varav många rader har bara 2 stycken ofyllda platser. De andra easy pusslena vill inte än konvergera.
 
 Om ingen förbättring har skett de senaste 500 generationerna, antas det att GA:n har hamnat i en lokal minimum, så populationen startas om. Det vill säga den gamla generationen kastas helt ut och `generate_solutions()` skapar en ny slumpmässig population.
 
@@ -447,10 +449,18 @@ ai supreme, when do we get replaced?
 
 # Källor
 
-*arcada skriv guide iirc sätt att skriva källor*
+Wikipedia, senast redigerad 2020, *Sudoku*, Tillgänglig: https://sv.wikipedia.org/wiki/Sudoku
+Hämtad: 6.12.2021
 
-Wikipedia, senast redigerad 2020, Sudoku, https://sv.wikipedia.org/, sedd 06 dec 2021, < https://sv.wikipedia.org/wiki/Sudoku>
+Norvig, P., 2011, *Solving Every Sudoku Puzzle*, Tillgänglig: https://norvig.com/sudoku.html
+Hämtad 04.12.2021
 
-Norvig, Peter, 2011, Solving Every Sudoku Puzzle, https://norvig.com/ , sedd 04 dec 2021, < https://norvig.com/sudoku.html >
+Easybrain, senast redigerad 2021, Tillgänglig: https://easybrain.com/
+Hämtad 04.12.2021
 
-Easybrain, senast redigerad 2021, https://easybrain.com/, sedd 04 dec 2021, < https://sudoku.com/ >
+Fendrich, D., 2010, Tillgänglig: http://fendrich.se/blog/2010/05/05/solving-sudoku-with-genetic-algorithms/
+Hämtad: 9.12.2021
+
+Dégardin, D., 2019, Tillgänglig: https://nidragedd.github.io/sudoku-genetics/
+Hämtad: 9.12.2021
+
