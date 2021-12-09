@@ -51,10 +51,10 @@ Detta upprepas för varje ruta tills det inte finns nå tomma rutor kvar. När d
 Algoritmen klarar av att lösa alla sudokun förutom easy sudoku 01.
 
 Easy sudoku 02
-!(/img/backtracking_easy02.jpg)
+![backtracking example1](/img/backtracking_easy02.jpg)
 
 Hard sudoku 04
-!(/img/backtracking_hard04.jpg)
+![backtracking example1](/img/backtracking_hard04.jpg)
 
 ## Genetisk algorithm i Python
 Asdasd
