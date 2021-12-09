@@ -851,11 +851,264 @@ Time:  640  ms
 # GA
 
 ## easy 00
-
+- PMX
+```
+[[3 4 0 2 6 0 8 0 1]
+ [0 2 0 5 0 8 3 0 0]
+ [0 0 1 0 3 0 0 0 0]
+ [0 6 2 0 4 7 0 9 8]
+ [4 0 0 0 5 0 0 0 2]
+ [5 0 8 1 9 0 7 6 0]
+ [0 1 0 0 8 5 0 2 0]
+ [0 8 7 0 0 0 9 1 0]
+ [0 0 0 9 7 0 0 8 0]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 27
+Gen 0 Best fitness= 22
+Sudoku solved in generation: 30
+Finished, best fitnesses: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+Best solution:
+ [[3 4 5 2 6 9 8 7 1]
+ [7 2 6 5 1 8 3 4 9]
+ [8 9 1 7 3 4 2 5 6]
+ [1 6 2 3 4 7 5 9 8]
+ [4 7 9 8 5 6 1 3 2]
+ [5 3 8 1 9 2 7 6 4]
+ [9 1 3 6 8 5 4 2 7]
+ [6 8 7 4 2 3 9 1 5]
+ [2 5 4 9 7 1 6 8 3]]
+Finished in  15.16
+```
+- PMX samma inställningar som ovan
+```
+[[3 4 0 2 6 0 8 0 1]
+ [0 2 0 5 0 8 3 0 0]
+ [0 0 1 0 3 0 0 0 0]
+ [0 6 2 0 4 7 0 9 8]
+ [4 0 0 0 5 0 0 0 2]
+ [5 0 8 1 9 0 7 6 0]
+ [0 1 0 0 8 5 0 2 0]
+ [0 8 7 0 0 0 9 1 0]
+ [0 0 0 9 7 0 0 8 0]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 26
+Gen 0 Best fitness= 21
+Gen 100 Best fitness= 8
+Gen 200 Best fitness= 8
+Gen 300 Best fitness= 8
+Gen 400 Best fitness= 8
+Gen 500 Best fitness= 8
+Gen 600 Best fitness= 8
+Gen 700 Best fitness= 8
+Gen 800 Best fitness= 8
+Gen 900 Best fitness= 8
+No improvement in last 500 generations, restarting population
+Gen 1000 Best fitness= 20
+Gen 1100 Best fitness= 4
+Gen 1200 Best fitness= 2
+Gen 1300 Best fitness= 2
+Gen 1400 Best fitness= 2
+Gen 1500 Best fitness= 2
+Gen 1600 Best fitness= 2
+Gen 1700 Best fitness= 2
+Gen 1800 Best fitness= 2
+Gen 1900 Best fitness= 2
+No improvement in last 500 generations, restarting population
+Gen 2000 Best fitness= 26
+Gen 2100 Best fitness= 2
+Sudoku solved in generation: 2128
+Finished, best fitnesses: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Best solution:
+ [[3 4 5 2 6 9 8 7 1]
+ [7 2 6 5 1 8 3 4 9]
+ [8 9 1 7 3 4 2 5 6]
+ [1 6 2 3 4 7 5 9 8]
+ [4 7 9 8 5 6 1 3 2]
+ [5 3 8 1 9 2 7 6 4]
+ [9 1 3 6 8 5 4 2 7]
+ [6 8 7 4 2 3 9 1 5]
+ [2 5 4 9 7 1 6 8 3]]
+Finished in  1018.72
+```
 ## easy 01
-
+- Row swap
+```
+[[0 1 0 0 4 0 2 8 0]
+ [2 5 0 8 3 0 0 6 9]
+ [0 8 4 0 0 0 0 0 0]
+ [0 0 0 0 5 0 9 0 0]
+ [7 0 0 3 9 0 0 2 8]
+ [1 9 6 2 8 0 0 7 3]
+ [0 0 8 0 0 0 6 9 0]
+ [0 0 9 7 6 0 8 1 5]
+ [0 6 0 0 2 8 0 0 0]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 24
+Gen 0 Best fitness= 24
+Gen 100 Best fitness= 10
+Gen 200 Best fitness= 10
+Gen 300 Best fitness= 10
+Gen 400 Best fitness= 10
+Gen 500 Best fitness= 8
+Gen 600 Best fitness= 8
+Gen 700 Best fitness= 8
+Gen 800 Best fitness= 8
+Gen 900 Best fitness= 8
+No improvement in last 500 generations, restarting population
+Gen 1000 Best fitness= 26
+Gen 1100 Best fitness= 4
+Gen 1200 Best fitness= 4
+Gen 1300 Best fitness= 2
+Gen 1400 Best fitness= 2
+Gen 1500 Best fitness= 2
+Gen 1600 Best fitness= 2
+Gen 1700 Best fitness= 2
+Gen 1800 Best fitness= 2
+Gen 1900 Best fitness= 2
+No improvement in last 500 generations, restarting population
+Gen 2000 Best fitness= 28
+Gen 2100 Best fitness= 11
+Gen 2200 Best fitness= 8
+Gen 2300 Best fitness= 8
+Gen 2400 Best fitness= 8
+Gen 2500 Best fitness= 8
+Gen 2600 Best fitness= 8
+Gen 2700 Best fitness= 8
+Gen 2800 Best fitness= 8
+Gen 2900 Best fitness= 8
+No improvement in last 500 generations, restarting population
+Gen 3000 Best fitness= 24
+Gen 3100 Best fitness= 4
+Gen 3200 Best fitness= 4
+Gen 3300 Best fitness= 2
+Gen 3400 Best fitness= 2
+Gen 3500 Best fitness= 2
+Gen 3600 Best fitness= 2
+Gen 3700 Best fitness= 2
+Gen 3800 Best fitness= 2
+Gen 3900 Best fitness= 2
+No improvement in last 500 generations, restarting population
+Gen 4000 Best fitness= 23
+Gen 4100 Best fitness= 8
+Gen 4200 Best fitness= 6
+Gen 4300 Best fitness= 6
+Gen 4400 Best fitness= 6
+Gen 4500 Best fitness= 6
+Gen 4600 Best fitness= 6
+Gen 4700 Best fitness= 4
+Gen 4800 Best fitness= 2
+Sudoku solved in generation: 4811
+Finished, best fitnesses: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Best solution:
+ [[6 1 3 5 4 9 2 8 7]
+ [2 5 7 8 3 1 4 6 9]
+ [9 8 4 6 7 2 3 5 1]
+ [8 3 2 1 5 7 9 4 6]
+ [7 4 5 3 9 6 1 2 8]
+ [1 9 6 2 8 4 5 7 3]
+ [3 7 8 4 1 5 6 9 2]
+ [4 2 9 7 6 3 8 1 5]
+ [5 6 1 9 2 8 7 3 4]]
+Finished in  595.45
+```
+---
+- PMX
+```
+[[0 1 0 0 4 0 2 8 0]
+ [2 5 0 8 3 0 0 6 9]
+ [0 8 4 0 0 0 0 0 0]
+ [0 0 0 0 5 0 9 0 0]
+ [7 0 0 3 9 0 0 2 8]
+ [1 9 6 2 8 0 0 7 3]
+ [0 0 8 0 0 0 6 9 0]
+ [0 0 9 7 6 0 8 1 5]
+ [0 6 0 0 2 8 0 0 0]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 26
+Gen 0 Best fitness= 26
+Gen 100 Best fitness= 2
+Gen 200 Best fitness= 2
+Gen 300 Best fitness= 2
+Gen 400 Best fitness= 2
+Gen 500 Best fitness= 2
+Gen 600 Best fitness= 2
+Gen 700 Best fitness= 2
+Gen 800 Best fitness= 2
+Gen 900 Best fitness= 2
+No improvement in last 500 generations, restarting population
+Gen 1000 Best fitness= 23
+Sudoku solved in generation: 1075
+Finished, best fitnesses: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Best solution:
+ [[6 1 3 5 4 9 2 8 7]
+ [2 5 7 8 3 1 4 6 9]
+ [9 8 4 6 7 2 3 5 1]
+ [8 3 2 1 5 7 9 4 6]
+ [7 4 5 3 9 6 1 2 8]
+ [1 9 6 2 8 4 5 7 3]
+ [3 7 8 4 1 5 6 9 2]
+ [4 2 9 7 6 3 8 1 5]
+ [5 6 1 9 2 8 7 3 4]]
+Finished in  248.56
+```
+---
+- PMX
+```
+[[0 1 0 0 4 0 2 8 0]
+ [2 5 0 8 3 0 0 6 9]
+ [0 8 4 0 0 0 0 0 0]
+ [0 0 0 0 5 0 9 0 0]
+ [7 0 0 3 9 0 0 2 8]
+ [1 9 6 2 8 0 0 7 3]
+ [0 0 8 0 0 0 6 9 0]
+ [0 0 9 7 6 0 8 1 5]
+ [0 6 0 0 2 8 0 0 0]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 26
+Gen 0 Best fitness= 24
+Sudoku solved in generation: 98
+Finished, best fitnesses: [0, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+Best solution:
+ [[6 1 3 5 4 9 2 8 7]
+ [2 5 7 8 3 1 4 6 9]
+ [9 8 4 6 7 2 3 5 1]
+ [8 3 2 1 5 7 9 4 6]
+ [7 4 5 3 9 6 1 2 8]
+ [1 9 6 2 8 4 5 7 3]
+ [3 7 8 4 1 5 6 9 2]
+ [4 2 9 7 6 3 8 1 5]
+ [5 6 1 9 2 8 7 3 4]]
+Finished in  23.43
+```
 ## easy 02
-
+- PMX
+```
+[[0 8 3 0 2 1 0 0 7]
+ [9 6 0 3 0 5 8 2 1]
+ [2 5 1 0 0 6 0 9 3]
+ [0 4 8 1 0 2 0 7 0]
+ [0 2 9 0 0 4 0 3 0]
+ [0 3 0 7 0 8 0 4 0]
+ [3 7 0 0 0 9 0 1 4]
+ [8 1 0 2 5 3 0 6 9]
+ [6 9 0 4 0 7 0 8 2]]
+Running ga with: n_parents=3000 n_generations=10000 divisor=2 mutation_rate=0.1 selection_ratio=0.25
+Start, best fitness: 16
+Gen 0 Best fitness= 13
+Sudoku solved in generation: 8
+Finished, best fitnesses: [0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]
+Best solution:
+ [[4 8 3 9 2 1 6 5 7]
+ [9 6 7 3 4 5 8 2 1]
+ [2 5 1 8 7 6 4 9 3]
+ [5 4 8 1 3 2 9 7 6]
+ [7 2 9 5 6 4 1 3 8]
+ [1 3 6 7 9 8 2 4 5]
+ [3 7 2 6 8 9 5 1 4]
+ [8 1 4 2 5 3 7 6 9]
+ [6 9 5 4 1 7 3 8 2]]
+Finished in  2.57
+```
 ## expert 00
 
 ## expert 01
