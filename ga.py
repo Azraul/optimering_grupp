@@ -1,7 +1,7 @@
 import random
 import numpy as np
 from typing import List, Tuple
-from scrap.pmx import pmx
+from scrap.pmx_alt import pmx
 from sudokus.samples.samples import sudokus
 
 # Just a custom type def for the puzzle
@@ -197,13 +197,13 @@ def ga(
         # Create n_parents new children
         for i in range(0, n_parents, 2):
             parent1_idx = random.choice(range(len(solutions)))
-            # parent1_idx = random.choices(range(len(solutions)), weights=weights)[0] # weighted version
+            #parent1_idx = random.choices(range(len(solutions)), weights=weights)[0] # weighted version
             parent1 = solutions[parent1_idx]
             parent2_idx = random.choice(range(len(solutions)))
-            # parent2_idx = random.choices(range(len(solutions)), weights=weights)[0] # weighted version
+            #parent2_idx = random.choices(range(len(solutions)), weights=weights)[0] # weighted version
             parent2 = solutions[parent2_idx]
 
-            child1, child2 = breed_swap_rows(parent1, parent2, mask)
+            child1, child2 = breed_pmx(parent1, parent2, mask)
 
             # Chance for the children to mutate.
             # Swaps two elements in a row
@@ -229,7 +229,7 @@ def ga(
 """ Run GA """
 import time
 
-puzzle = np.array(sudokus["easy"][1])
+puzzle = np.array(sudokus["easy"][2])
 t0 = time.time()
 ga(
     puzzle=puzzle,
