@@ -469,32 +469,54 @@ Finished in  248.56
 PMX löser easy_01 med 1 generation restart, 248 sekunder i 1075 generationer. PMX är dubbelt snabbare än row swap.
 # Jämförelser
 
-## Lösningsförmåga
+I avslutande kapitel ser vi lite övergripande på de olika metoder och algoritmer vi provat under projektets 
+gång.
 
-GA är ett förfärligt sätt att lösa sudokun. Den hamnar ofta i lokala minimum som inte löser ut sig själva utan att omstarta populationen. Bara de enklaste svårighetsgraderna kan lösas. PMX och Row Swap korsningsmetoderna verkar båda lika kapabla att lösa enkla pussel.
+## Lösningsförmåga
+Vi kan enkelt konstatera att:
+
+    -   Lpsolve, klarar alla problem, iallafall i teorin, dock inte de svåraste inom en rimlig tid.
+    -   PuLP & Backtracking, klarar alla problem utan några större svårigheter
+    -   Genetiska Algoritmer, klarar en varierande mängde enklare problem i olika grad.
+
 ## Hastighet
 
-GA: Enkla pussel blir lösta på mellan 5 och 15 minuter. PMX är dubbelt snabbare än Row Swap att komma till en konvergation.
+![hastighet](/img/bar_chart.png)
+
+Med så stora skillnader i lösningstiderna blir vår grafik inte speciellt användbar och trots lpsolves stora stapel är det trots allt GA – PMX som bör intressera då den inte överhuvudtaget kunde lösa det svårare sudokut.
+
 
 ## Komplexitet
- mindre komplexa än oss
+Utan att säga något kan det direkt göras en slutsats för att se hur kort och koncis backtracking koden är. Men vi skulle ändå argumentera att tankesättet bakom ett vanligt linjärt problem som lpsolve är ännu mindre 
+komplext även om koden och lp-filen är rätt långa.
+
+Medan inte något effektiv, att skapa en GA för att lösa sudokun är relativt simpelt och inte mycket  hjärnaktivitet krävdes för att hitta på en metod som åtminstone har en chans att lösa en sudoku. Ungefär det 
+enda som krävdes till extern källa var Fendrichs metod att evaluera en lösning (räkna ihop konflikter). Trots detta är metoden i sig både svårare att forma och mer komplex i vårt tycke än några av de andra.
 
 ## Reflektioner
+Som poängterat ett antal gånger, är GA inte en passande lösningsmetod för sudokupussel. Även så, har vi fyndat ett "nytt" sätt att lösa sudokun med PMX, och att PMX verkar lösa pusslen snabbare än row swap. Det skulle dock ännu vara intressant att veta ifall våran PMX skulle vara lika effektiv cell-vis istället för radvis, då det verkar många källor på nätet löser GA sudokun cell-för-cell istället.
+
+Degardin 2019 till exempel löser cell-vis, och hen verkar kunna lösa betydligt svårare pussel än vår lösning. Vi har dock inte kollat igenom koden för att se vad de gör annorlunda utan får ta det en annan gång när tiden 
+tillåter.
+
+Vi har även sätt att det finns helt tydliga restriktioner med lpsolve och att mer robusta modeller som hittas i PuLP har en plats i optimering, eller kanske man bara borde hålla sig till mer ekonomiska problem istället för 
+pussel...
 
 # Källor
 
-Wikipedia, senast redigerad 2020, *Sudoku*, Tillgänglig: https://sv.wikipedia.org/wiki/Sudoku
-Hämtad: 6.12.2021
+Wikipedia, senast redigerad 2020, Sudoku, https://sv.wikipedia.org/, sedd 06 dec 2021, <
+https://sv.wikipedia.org/wiki/Sudoku>
 
-Norvig, P., 2011, *Solving Every Sudoku Puzzle*, Tillgänglig: https://norvig.com/sudoku.html
-Hämtad 04.12.2021
+Norvig, Peter, 2011, Solving Every Sudoku Puzzle, https://norvig.com/ , sedd 04 dec 2021, <
+https://norvig.com/sudoku.html >
 
-Easybrain, senast redigerad 2021, Tillgänglig: https://easybrain.com/
-Hämtad 04.12.2021
+Easybrain, senast redigerad 2021, https://easybrain.com/, sedd 04 dec 2021, < https://sudoku.com/ > 
+
+Computerphile, 2020, Nottingham University, Python Sudoku Solver, 
+https://www.youtube.com/watch?v=G_UYXzGuqvM, sedd 06 dec 2021
 
 Fendrich, D., 2010, Tillgänglig: http://fendrich.se/blog/2010/05/05/solving-sudoku-with-genetic-algorithms/
 Hämtad: 9.12.2021
 
-Dégardin, D., 2019, Tillgänglig: https://nidragedd.github.io/sudoku-genetics/
-Hämtad: 9.12.2021
+Dégardin, D., 2019, Tillgänglig: https://nidragedd.github.io/sudoku-genetics/ Hämtad: 9.12.2021
 
