@@ -149,7 +149,7 @@ Vi tar och löser samma sudokun som i LP-lösningarna:
 	                                         [8 1 4 2 5 3 7 6 9]
 	                                         [6 9 5 4 1 7 3 8 2]]                                
 
-
+Löser lätta sudokun snabbare än vad PuLP gör.
 	 
 ### Hard sudoku 04
 	solution  1 :                           [[5 2 1 3 8 9 7 4 6]
@@ -162,7 +162,7 @@ Vi tar och löser samma sudokun som i LP-lösningarna:
                                              [2 5 6 9 4 7 1 8 3]
                                              [9 1 3 5 2 8 4 6 7]]
 
-
+Backtracking tar längre tid att lösa svårare sudokun där förgreningsfaktorn är stor.
 
 ## Genetisk algorithm i Python
 
