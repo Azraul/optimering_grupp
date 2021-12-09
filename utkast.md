@@ -424,9 +424,11 @@ PMX löser easy_01 med 1 generation restart, 248 sekunder i 1075 generationer. P
 # Jämförelser
 
 ## Lösningsförmåga
+Backtracking klararav att lösa puzzel av alla svårighets grader.
 
 GA är ett förfärligt sätt att lösa sudokun. Den hamnar ofta i lokala minimum som inte löser ut sig själva utan att omstarta populationen. Bara de enklaste svårighetsgraderna kan lösas. PMX och Row Swap korsningsmetoderna verkar båda lika kapabla att lösa enkla pussel.
 ## Hastighet
+Backtracking: Löser snabbast lätta puzzel men tar längre tid för att lösa en del av de svårare puzzlen. Hastig heten är mellan 1 ms och 4 sekunder. Eftersom algoritmen n the kommer ihåg tidigare besökta ruttor så måste den göra beräkningarna på nytt. Detta gör att puzzel med mycket tomma rutor är tidskrävande att lösa. 
 
 GA: Enkla pussel blir lösta på mellan 5 och 15 minuter. PMX är dubbelt snabbare än Row Swap att komma till en konvergation.
 
