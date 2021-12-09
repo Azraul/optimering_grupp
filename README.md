@@ -3,9 +3,11 @@
 
 
 ## ToDo
- - LP solve
- - GA solve
- - Compare in 6 page report
+ - ~~LP solve~~
+ - ~~PuLP solve~~
+ - ~~Backtracking~~
+ - ~~GA solve~~
+ - Compare LP, Backtracking, PuLP, GA in 6 page report
  - Presentation
 
 ## Sample sodukus
