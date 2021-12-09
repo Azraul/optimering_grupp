@@ -68,8 +68,8 @@ sudokus = samples.sudokus()
 # Därför loopar vi igenom våra exmpel sudokun (list of lists) och sparar deras contraints i en ny variable
 sudokus_constraints = []
 
-level = 'easy'  # expert    / easy
-sample = 2      # 0-4       / 0-2
+level = 'expert'  # expert    / easy
+sample = 4      # 0-4       / 0-2
 
 for s in sudokus[level]:
     sc = []

@@ -13,15 +13,6 @@ Vi provar samma easy-sudoku 02 från tidigare och ser resultatet (resultatet är
     Time:  93 ms                                                                 [3 7 2 6 8 9 5 1 4]
                                                                                  [8 1 4 2 5 3 7 6 9]
                                                                                  [6 9 5 4 1 7 3 8 2]]
-        
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
 
 Lösning ser ut att vara den samma som lpsolve kommit fram till och om vi sedan går vidare och provar det svårare sudokut kommer vi få resultatet:
 

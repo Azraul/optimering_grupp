@@ -67,8 +67,8 @@ def solve(grid):
 
 
 
-level = 'easy'  # expert    / easy
-sample = 2      # 0-4       / 0-2
+level = 'expert'  # expert    / easy
+sample = 4      # 0-4       / 0-2
 
 # iterations, bör vara global pga. recursive & resets
 ### Kan bygga en funktion som kallas men blir mindre tydligt då
