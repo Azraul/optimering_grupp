@@ -12,7 +12,7 @@ Vi har valt att söka sätt att lösa det logiska spelet sudoku med olika optime
 
 Vi väljer Python eftersom det är något vi arbetat med mycket tidigare och är bekanta med, samt att tiden är kort för projektet och alternativ som R därmed uteslöts eftersom det inte är bekant för oss.
 
-Linjär och pmx är direkta metoder från kursen vi kommer nyttja men även en form av rekursiv (så kallad bakåtspårning/backtracking) samt verktyget PuLP i Python, vårt valda programmeringsspråk.
+LP Solve och pmx är direkta metoder från kursen vi kommer nyttja men även en form av rekursiv lösande (så kallad bakåtspårning/backtracking), samt biblioteket PuLP i Python, vårt valda programmeringsspråk.
 
 ### Sudoku definiering
 Sudoku är ett numeriskt pussel som består av ett rutnät på 81 rutor som ska fyllas med siffrorna 1 till 9 utan att samma siffra får finnas i samma rad, kolumn eller låda, en låda består av de 9 3x3 rutnät som kan bildas inom sudokuns area, denna begränsning kallas även latinsk kvadrat.
@@ -129,8 +129,36 @@ gif? img? omg?
 
 asdasdasd
 ## Genetisk algorithm i Python
+Källor: 
 
-Asdasd
+En genetisk algoritm (GA) tar inspiration från naturens egen evolution. Utav en mängd olika lösningar, kallad population, två lösningar som har urvalts som goda korsas ihop för att skapa två nya "barn" vilka adderas till den nästa populationen. Många GA:n implementerar en chans åt barnens värden att muteras. Detta steg upprepas tills tillräckligt många barn har skapats, varefter den nya populationen blir evaluerad och korsad ihop.
+Nya populationer skapas ända tills en tillräckligt bra lösning har hittats eller mängden generationer överskrider programmets parametrar.
+
+En GA består då av följande komponenter:
+- En generator som skapar `n` mängd olika lösningar baserat på inputten
+- En fitness evaluerare som rangordnar lösningarna
+- Något som bestämmer vilka lösningar väljs för korsande
+- En korsare för att kombinera två föräldrar till två barn
+- En möjlighet för mutation
+- Konditioner när GA ska sluta
+
+Det sägs att GA är bra till att lösa TSP problem, så den huvudsakliga orsaken vi valt försöka lösa sudoku med GA är för att (enligt vår enkla uppfattning) sudoku kan ses som ett TSP där bara en nod("siffra") kan besökas ("placeras") utan att man besöker den noden igen (unik siffra per rad/kolumn/cell).
+
+### Implementation
+
+
+
+
+- Hur är denna GA uppställd
+	- Förinfyllda värden blir inte ändrade
+- Berätta hur vi kom till parametrarna
+	- Mera parents = större chans att converge
+	- Mutation rate kan hjälpa till att föra vidare lösningarna
+	- divisor = viktning hur han förklarade i lektion
+	- selection ratio väljer top x% lösningar, snabbar till convergence
+	- tog bort vikterna
+	- har också testat med att poppa bort parents då dom en gång parats
+	- 
 
 pmx, pms, smp
 
@@ -140,7 +168,7 @@ asdasd
 ## Lösningsförmåga
 Asdasdasd
 
-de är alla smartare än oss
+de är alla smartare än oss(inte sudoku GA)
 ## Hastighet
 Asdasd
 

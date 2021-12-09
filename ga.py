@@ -58,7 +58,7 @@ class Fitness:
                 ]
             )
             scored.append([solution, s])
-        scored = np.array(sorted(scored, key=lambda pair: pair[1]))
+        scored = np.array(sorted(scored, key=lambda pair: pair[1]), dtype=object)
         return list(scored[:, 0]), list(scored[:, 1])
 
 
@@ -151,7 +151,10 @@ def ga(
     mutation_rate=0.01,
     selection_ratio=0.25,
 ):
-    print(f"Running ga with: {n_parents=} {n_generations=} {divisor=} {mutation_rate=}")
+    print(puzzle)
+    print(
+        f"Running ga with: {n_parents=} {n_generations=} {divisor=} {mutation_rate=} {selection_ratio=}"
+    )
     # Generate random candidates based on the given sudoku
     solutions = generate_solutions(puzzle, n_parents)
     mask = puzzle == 0  # A numpy mask. Used for selecting elements like in pandas dataframes
@@ -171,10 +174,10 @@ def ga(
             break
 
         # Generate a new population if no improvement has been made in 800 generations
-        if generation % 800 == 0:
+        if generation % 500 == 0:
             current_best_fitness = fitnesses[0]
             if (prev_best_fitness - current_best_fitness) == 0:
-                print("No improvement in last 800 generations, restarting population")
+                print("No improvement in last 500 generations, restarting population")
                 solutions = generate_solutions(puzzle, n_parents)
                 solutions, fitnesses = fitness.check(solutions)
                 current_best_fitness = fitnesses[0]
@@ -193,12 +196,14 @@ def ga(
 
         # Create n_parents new children
         for i in range(0, n_parents, 2):
-            parent1_idx = random.choices(range(len(solutions)), weights=weights)[0]
+            parent1_idx = random.choice(range(len(solutions)))
+            # parent1_idx = random.choices(range(len(solutions)), weights=weights)[0] # weighted version
             parent1 = solutions[parent1_idx]
-            parent2_idx = random.choices(range(len(solutions)), weights=weights)[0]
+            parent2_idx = random.choice(range(len(solutions)))
+            # parent2_idx = random.choices(range(len(solutions)), weights=weights)[0] # weighted version
             parent2 = solutions[parent2_idx]
 
-            child1, child2 = breed_pmx(parent1, parent2, mask)
+            child1, child2 = breed_swap_rows(parent1, parent2, mask)
 
             # Chance for the children to mutate.
             # Swaps two elements in a row
@@ -218,11 +223,13 @@ def ga(
             print("Gen", generation, "Best fitness=", fitnesses[0])
 
     print("Finished, best fitnesses:", fitnesses[:50])
+    print("Best solution:\n", solutions[0])
 
 
+""" Run GA """
 import time
 
-puzzle = np.array(sudokus["easy"][2])
+puzzle = np.array(sudokus["easy"][1])
 t0 = time.time()
 ga(
     puzzle=puzzle,
