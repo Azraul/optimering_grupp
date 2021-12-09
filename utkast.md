@@ -405,7 +405,7 @@ Gen 100 Best fitness= 2
 No improvement in last 500 generations, restarting population
 Gen 1000 Best fitness= 23
 Sudoku solved in generation: 1075
-Finished, best fitnesses: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+Finished, best fitnesses: [0, 2, 2, 2, 2, 2, 2, 2, 2, 2]
 Best solution:
  [[6 1 3 5 4 9 2 8 7]
  [2 5 7 8 3 1 4 6 9]
