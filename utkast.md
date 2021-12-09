@@ -128,13 +128,41 @@ asdasdasd
 
 ## Backtracking i Python
 
-Asdasdasd
+Backtracking är en algoritm där man återgår till föregående steg eller lösning så snart man kan fastställa att den nuvarande lösning inte kan bli en komplett lösning. Vi kommer att använda denna princip för backtracking för att implementera följande algoritm.
 
-förklara backtracking
+Algoritmens uppgift är att leta efter tomma rutor i sudokun och sedan försöka placera 1–9 i rutan. När algoritmen har valt ut en ruta och placerat en siffra i den så kontrolleras det att siffran inte redan finns i y eller x axeln och inte i ett 3x3 rutnät. Ifall siffran inte är giltig går den tillbaka och försöker med nästa siffra 1-9. Ifall sifforna inte passar går den vidare till nästa ruta. 
 
-gif? img? omg?
+Detta upprepas för varje ruta tills det inte finns nå tomma rutor kvar. När det inte finns någon tom ruta kvar så har vi vår lösning.
 
-asdasdasd
+Algoritmen klarar av att lösa alla sudokun förutom easy sudoku 01.
+
+Vi tar och löser samma sudokun som i LP-lösningarna: 
+
+### Easy sudoku 02
+	solution  1 :                           [[4 8 3 9 2 1 6 5 7]
+	iterations: 213                          [9 6 7 3 4 5 8 2 1]
+	Time:  1001000 NANO s                    [2 5 1 8 7 6 4 9 3]     
+	 	                                 [5 4 8 1 3 2 9 7 6]
+	                                         [7 2 9 5 6 4 1 3 8]
+	                                         [1 3 6 7 9 8 2 4 5]
+	                                         [3 7 2 6 8 9 5 1 4]
+	                                         [8 1 4 2 5 3 7 6 9]
+	                                         [6 9 5 4 1 7 3 8 2]]                                
+
+
+	 
+### Hard sudoku 04
+	solution  1 :                           [[5 2 1 3 8 9 7 4 6]
+	iterations: 427579                       [4 3 8 7 6 5 9 1 2]
+	Time:  640  ms                           [6 9 7 2 1 4 8 3 5]
+                                             [3 6 5 8 9 1 2 7 4]
+                                             [8 7 2 4 5 3 6 9 1]
+                                             [1 4 9 6 7 2 3 5 8]
+                                             [7 8 4 1 3 6 5 2 9]
+                                             [2 5 6 9 4 7 1 8 3]
+                                             [9 1 3 5 2 8 4 6 7]]
+
+
 
 ## Genetisk algorithm i Python
 
