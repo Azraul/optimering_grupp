@@ -1,7 +1,7 @@
 import random
 import numpy as np
 from typing import List, Tuple
-from scrap.pmx_alt import pmx
+from pmx import pmx
 from sudokus.samples.samples import sudokus
 
 # Just a custom type def for the puzzle
@@ -230,11 +230,11 @@ def ga(
 """ Run GA """
 import time
 
-puzzle = np.array(sudokus["medium"][0])
+puzzle = np.array(sudokus["easy"][0])
 t0 = time.time()
 ga(
     puzzle=puzzle,
-    n_parents=8000,
+    n_parents=6000,
     n_generations=10000,
     divisor=2,
     mutation_rate=0.1,
